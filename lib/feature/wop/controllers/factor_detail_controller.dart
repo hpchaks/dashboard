@@ -6,8 +6,12 @@ import 'package:dashboard/feature/wop/controllers/dashboard_controller.dart';
 
 class FactorDetailController extends GetxController {
   final TotalOrdersController totalOrdersController;
+  final VoidCallback? onProcessed;
 
-  FactorDetailController({required this.totalOrdersController});
+  FactorDetailController({
+    required this.totalOrdersController,
+    this.onProcessed,
+  });
 
   Order get order => totalOrdersController.currentOrder;
 
@@ -278,7 +282,7 @@ class FactorDetailController extends GetxController {
         colorText: Colors.white,
       );
 
-      Navigator.pop(context);
+      popOrFinish(context);
     }
   }
 
@@ -315,7 +319,7 @@ class FactorDetailController extends GetxController {
       );
     });
 
-    Navigator.pop(context);
+    popOrFinish(context);
   }
 
   void approveQA(BuildContext context) {
@@ -331,7 +335,7 @@ class FactorDetailController extends GetxController {
       backgroundColor: Colors.green,
       colorText: Colors.white,
     );
-    Navigator.pop(context);
+    popOrFinish(context);
   }
 
   void failQA(String reason, BuildContext context) {
@@ -356,7 +360,7 @@ class FactorDetailController extends GetxController {
     // I'll keep it simple: Status set, Snack bar shown.
     // The "Detailed Planning" screen should show Factor 2 as failed (Red).
     // I'll pop context to return to detailed planning list.
-    Navigator.pop(context);
+    popOrFinish(context);
   }
 
   // Vadilal Logic
@@ -380,7 +384,7 @@ class FactorDetailController extends GetxController {
       backgroundColor: Colors.orange,
       colorText: Colors.white,
     );
-    Navigator.pop(context);
+    popOrFinish(context);
   }
 
   void allocateCylinders(int count, BuildContext context) {
@@ -401,7 +405,7 @@ class FactorDetailController extends GetxController {
         backgroundColor: Colors.green,
         colorText: Colors.white,
       );
-      Navigator.pop(context);
+      popOrFinish(context);
     } else {
       // Not Available / Partial
       isStockAvailable.value = false;
@@ -422,7 +426,7 @@ class FactorDetailController extends GetxController {
         backgroundColor: Colors.orange.shade800,
         colorText: Colors.white,
       );
-      Navigator.pop(context);
+      popOrFinish(context);
     }
   }
 
@@ -438,7 +442,7 @@ class FactorDetailController extends GetxController {
         backgroundColor: Colors.green,
         colorText: Colors.white,
       );
-      Navigator.pop(context); // Auto "Done"
+      popOrFinish(context); // Auto "Done"
     } else {
       // Shortage / Generate Indent
       isRawMaterialAvailable.value = false;
@@ -593,7 +597,15 @@ class FactorDetailController extends GetxController {
       backgroundColor: Colors.green,
       colorText: Colors.white,
     );
-    Navigator.pop(context);
+    popOrFinish(context);
+  }
+
+  void popOrFinish(BuildContext context) {
+    if (onProcessed != null) {
+      onProcessed!();
+    } else {
+      Navigator.pop(context);
+    }
   }
 
   void _simulateEmailNotifications(String remark, {bool isLogistics = false}) {

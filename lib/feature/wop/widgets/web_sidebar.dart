@@ -23,7 +23,7 @@ class WebSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 280,
+      width: 240,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(right: BorderSide(color: Colors.grey.shade200)),
@@ -32,10 +32,10 @@ class WebSidebar extends StatelessWidget {
         children: [
           // Logo
           Container(
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.fromLTRB(32, 12, 32, 24),
             alignment: Alignment.centerLeft,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
               decoration: BoxDecoration(
                 color: AppColors.kColorSecondary,
                 borderRadius: const BorderRadius.only(
@@ -47,7 +47,7 @@ class WebSidebar extends StatelessWidget {
                 'Vadilal',
                 style: TextStyles.kBoldDongle(
                   color: Colors.white,
-                  fontSize: 28,
+                  fontSize: 42,
                 ),
               ),
             ),
@@ -92,12 +92,10 @@ class WebSidebar extends StatelessWidget {
   }) {
     return ListTile(
       onTap: onTap,
-      tileColor: isSelected
-          ? AppColors.kColorSecondary.withValues(alpha: 0.1)
-          : null,
+      tileColor: isSelected ? AppColors.kColorRed.withValues(alpha: 0.1) : null,
       leading: Icon(
         icon,
-        color: isSelected ? AppColors.kColorSecondary : Colors.grey.shade600,
+        color: isSelected ? AppColors.kColorRed : AppColors.kColorPrimary,
       ),
       title: Row(
         children: [
@@ -105,12 +103,12 @@ class WebSidebar extends StatelessWidget {
             label,
             style: isSelected
                 ? TextStyles.kBoldDongle(
-                    fontSize: 18,
-                    color: AppColors.kColorSecondary,
+                    fontSize: 22,
+                    color: AppColors.kColorRed,
                   )
                 : TextStyles.kMediumDongle(
-                    fontSize: 18,
-                    color: Colors.grey.shade700,
+                    fontSize: 22,
+                    color: AppColors.kColorPrimary,
                   ),
           ),
           if (badgeCount > 0) ...[
@@ -118,14 +116,18 @@ class WebSidebar extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
-                color: AppColors.timelinePending,
+                color: isSelected
+                    ? AppColors.kColorRed.withValues(alpha: 0.1)
+                    : AppColors.kColorPrimary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 '$badgeCount',
                 style: TextStyles.kBoldDongle(
-                  fontSize: 14,
-                  color: Colors.white,
+                  fontSize: 22,
+                  color: isSelected
+                      ? AppColors.kColorRed
+                      : AppColors.kColorPrimary,
                 ),
               ),
             ),

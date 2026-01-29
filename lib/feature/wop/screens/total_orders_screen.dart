@@ -97,39 +97,25 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
               // Header
               Container(
                 padding: const EdgeInsets.all(32),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey.shade200),
-                  ),
-                ),
+                decoration: const BoxDecoration(color: Colors.white),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Obx(() {
-                        if (controller.selectedDate.value != null) {
-                          return Center(
-                            child: Text(
-                              DateFormat(
-                                'dd MMM yyyy',
-                              ).format(controller.selectedDate.value!),
-                              style: TextStyles.kBoldDongle(
-                                fontSize: 32,
-                                color: AppColors.kColorSecondary,
-                              ),
-                            ),
-                          );
-                        }
-                        return Text(
-                          controller.selectedStatus.value,
-                          style: TextStyles.kBoldDongle(
-                            fontSize: 32,
-                            color: AppColors.kColorSecondary,
-                          ),
-                        );
-                      }),
-                    ),
+                    Obx(() {
+                      String titleText = controller.selectedStatus.value;
+                      if (controller.selectedDate.value != null) {
+                        titleText = DateFormat(
+                          'dd MMM yyyy',
+                        ).format(controller.selectedDate.value!);
+                      }
+                      return Text(
+                        titleText,
+                        style: TextStyles.kBoldDongle(
+                          fontSize: 36,
+                          color: AppColors.kColorSecondary,
+                        ),
+                      );
+                    }),
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
@@ -190,44 +176,51 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
               // Active Filters Indicator
               Obx(() {
                 if (controller.selectedDate.value != null) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 32,
-                      vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.blue.shade50,
-                      border: Border(
-                        bottom: BorderSide(color: Colors.blue.shade200),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.filter_alt,
-                          size: 18,
-                          color: Colors.blue.shade700,
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 6,
                         ),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Filtered by date: ${DateFormat('dd MMM yyyy').format(controller.selectedDate.value!)}',
-                          style: TextStyles.kMediumDongle(
-                            fontSize: 14,
-                            color: Colors.blue.shade700,
-                          ),
+                        decoration: BoxDecoration(
+                          color: Colors.blue.shade50,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.blue.shade200),
                         ),
-                        const Spacer(),
-                        InkWell(
-                          onTap: () => controller.clearDate(),
-                          child: Text(
-                            'Clear Filter',
-                            style: TextStyles.kBoldDongle(
-                              fontSize: 14,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.filter_alt,
+                              size: 16,
                               color: Colors.blue.shade700,
                             ),
-                          ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Date: ${DateFormat('dd MMM yyyy').format(controller.selectedDate.value!)}',
+                              style: TextStyles.kMediumDongle(
+                                fontSize: 16,
+                                color: Colors.blue.shade700,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            const VerticalDivider(width: 1, thickness: 1),
+                            const SizedBox(width: 12),
+                            InkWell(
+                              onTap: () => controller.clearDate(),
+                              child: Text(
+                                'Clear',
+                                style: TextStyles.kBoldDongle(
+                                  fontSize: 16,
+                                  color: Colors.blue.shade700,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   );
                 }
@@ -265,12 +258,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
                     orders: orders,
                     controller: controller,
                     onOrderTap: (order) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OrderDetailScreen(),
-                        ),
-                      );
+                      Get.to(() => const OrderDetailScreen());
                     },
                   );
                 }),
@@ -377,32 +365,36 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: AppColors.kColorPrimary),
         borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8),
+        ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      height: 56,
       child: Row(
         children: [
+          Icon(Icons.search, color: AppColors.kColorSecondary, size: 24),
+          const SizedBox(width: 16),
           Expanded(
             child: TextField(
               onChanged: (val) {
                 controller.clearPreloadedOrders();
                 controller.searchQuery.value = val;
               },
-              style: TextStyles.kRegularDongle(fontSize: FontSizes.k14FontSize),
+              style: TextStyles.kRegularDongle(fontSize: 24),
               decoration: InputDecoration(
                 hintText: 'Search orders, customers...',
                 hintStyle: TextStyles.kRegularDongle(
-                  fontSize: FontSizes.k14FontSize,
+                  fontSize: 24,
                   color: AppColors.kColorGrey,
                 ),
                 border: InputBorder.none,
                 isDense: true,
-                contentPadding: const EdgeInsets.symmetric(vertical: 16),
               ),
             ),
           ),
-          Icon(Icons.search, color: AppColors.kColorSecondary),
         ],
       ),
     );
@@ -436,23 +428,31 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
           );
         },
         child: Container(
-          height: 54,
-          width: 54,
+          height: 56, // Matched height
+          width: 56,
           decoration: BoxDecoration(
-            color: isDateSelected
-                ? AppColors.kColorPrimary.withValues(alpha: 0.1)
-                : Colors.white,
+            color: Colors.white,
             border: Border.all(
               color: isDateSelected
-                  ? AppColors.kColorPrimary
-                  : Colors.grey.shade300,
+                  ? AppColors.kColorSecondary
+                  : AppColors.kColorPrimary,
             ),
             borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 8,
+              ),
+            ],
           ),
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Icon(Icons.calendar_month, color: AppColors.kColorSecondary),
+              Icon(
+                Icons.calendar_month,
+                color: AppColors.kColorSecondary,
+                size: 28,
+              ),
               if (isDateSelected)
                 Positioned(
                   right: 12,
@@ -461,7 +461,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
                     width: 8,
                     height: 8,
                     decoration: const BoxDecoration(
-                      color: AppColors.kColorSecondary,
+                      color: AppColors.kColorRed,
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -476,11 +476,18 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
   Widget _buildStatusDropdown() {
     return Obx(
       () => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        height: 56,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Colors.grey.shade300),
+          border: Border.all(color: AppColors.kColorPrimary),
           borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 8,
+            ),
+          ],
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
@@ -492,15 +499,16 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
             icon: Icon(
               Icons.keyboard_arrow_down,
               color: AppColors.kColorSecondary,
+              size: 28,
             ),
             items: controller.statusList.map((String status) {
               return DropdownMenuItem<String>(
                 value: status,
                 child: Text(
                   status,
-                  style: TextStyles.kMediumDongle(
-                    fontSize: FontSizes.k14FontSize,
-                    color: Colors.grey.shade700,
+                  style: TextStyles.kBoldDongle(
+                    fontSize: 24,
+                    color: Colors.black87,
                   ),
                 ),
               );
@@ -520,11 +528,18 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
   Widget _buildCylinderDropdown() {
     return Obx(
       () => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        height: 56,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Colors.grey.shade300),
+          border: Border.all(color: AppColors.kColorPrimary),
           borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 8,
+            ),
+          ],
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
@@ -535,15 +550,16 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
             icon: Icon(
               Icons.keyboard_arrow_down,
               color: AppColors.kColorSecondary,
+              size: 28,
             ),
             items: controller.cylinderList.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(
                   value,
-                  style: TextStyles.kMediumDongle(
-                    fontSize: FontSizes.k14FontSize,
-                    color: Colors.grey.shade700,
+                  style: TextStyles.kBoldDongle(
+                    fontSize: 24,
+                    color: Colors.black87,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -564,11 +580,18 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
   Widget _buildSortDropdown() {
     return Obx(
       () => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        height: 56,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Colors.grey.shade300),
+          border: Border.all(color: AppColors.kColorPrimary),
           borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 8,
+            ),
+          ],
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
@@ -579,15 +602,16 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
             icon: Icon(
               Icons.keyboard_arrow_down,
               color: AppColors.kColorSecondary,
+              size: 28,
             ),
             items: controller.sortList.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(
                   value,
-                  style: TextStyles.kMediumDongle(
-                    fontSize: FontSizes.k14FontSize,
-                    color: Colors.grey.shade700,
+                  style: TextStyles.kBoldDongle(
+                    fontSize: 24,
+                    color: Colors.black87,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -614,62 +638,114 @@ class OrderDetailScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.kColorSecondary),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Obx(() {
-          final order = controller.selectedOrder.value;
-          if (order == null) return const SizedBox();
-          return Text(
-            order.status == 'In Production'
-                ? 'Production Status'
-                : 'Detailed Planning',
-            style: TextStyles.kBoldDongle(
-              fontSize: isWeb ? 24 : FontSizes.k20FontSize,
-              color: AppColors.kColorSecondary,
+      appBar: isWeb
+          ? null
+          : AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: AppColors.kColorSecondary,
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
+              title: Obx(() {
+                final order = controller.selectedOrder.value;
+                if (order == null) return const SizedBox();
+                return Text(
+                  order.status == 'In Production'
+                      ? 'Production Status'
+                      : 'Detailed Planning',
+                  style: TextStyles.kBoldDongle(
+                    fontSize: FontSizes.k20FontSize,
+                    color: AppColors.kColorSecondary,
+                  ),
+                );
+              }),
             ),
-          );
-        }),
-      ),
       body: isWeb
-          ? _buildWebDetailLayout(controller)
+          ? _buildWebDetailLayout(context, controller)
           : _buildMobileDetailLayout(controller),
     );
   }
 
-  Widget _buildWebDetailLayout(TotalOrdersController controller) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildWebDetailLayout(
+    BuildContext context,
+    TotalOrdersController controller,
+  ) {
+    return Column(
       children: [
-        // Left Panel - Order Card
-        Expanded(
-          flex: 2,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(32),
-            child: Obx(() {
-              final order = controller.selectedOrder.value;
-              if (order == null) return const SizedBox();
-              return OrderCard(order: order);
-            }),
+        // Header (Matching Dashboard/Total Orders Style)
+        Container(
+          padding: const EdgeInsets.all(32),
+          decoration: const BoxDecoration(color: Colors.white),
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: AppColors.kColorSecondary,
+                  size: 28,
+                ),
+                onPressed: () => Get.back(),
+              ),
+              const SizedBox(width: 16),
+              Obx(() {
+                final order = controller.selectedOrder.value;
+                if (order == null) return const SizedBox();
+                return Text(
+                  order.status == 'In Production'
+                      ? 'Production Status'
+                      : 'Detailed Planning',
+                  style: TextStyles.kBoldDongle(
+                    fontSize: 36,
+                    color: AppColors.kColorSecondary,
+                  ),
+                );
+              }),
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.grey.shade200),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 8,
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.notifications_outlined,
+                  color: AppColors.kColorSecondary,
+                  size: 24,
+                ),
+              ),
+            ],
           ),
         ),
-        // Right Panel - Factors
+        // Top Panel - Order Data (Horizontal)
+        Obx(() {
+          final order = controller.selectedOrder.value;
+          if (order == null) return const SizedBox();
+          return _buildOrderDataTable(order);
+        }),
+        // Bottom Panel - Factors
         Expanded(
-          flex: 3,
           child: Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.shade50,
-              border: Border(left: BorderSide(color: Colors.grey.shade200)),
-            ),
+            color: Colors.grey.shade50,
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(32),
               child: Obx(() {
                 final order = controller.selectedOrder.value;
                 if (order == null) return const SizedBox();
+
+                if (controller.viewingFactorIndex.value != 0) {
+                  return _buildFactorDetailInPlace(order, controller);
+                }
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -679,7 +755,7 @@ class OrderDetailScreen extends StatelessWidget {
                           ? 'Order Progress'
                           : 'Planning Factors',
                       style: TextStyles.kBoldDongle(
-                        fontSize: 24,
+                        fontSize: 28,
                         color: AppColors.kColorPrimary,
                       ),
                     ),
@@ -738,7 +814,7 @@ class OrderDetailScreen extends StatelessWidget {
                             child: Text(
                               'START PRODUCTION',
                               style: TextStyles.kBoldDongle(
-                                fontSize: 18,
+                                fontSize: 24,
                                 color: Colors.white,
                               ),
                             ),
@@ -750,7 +826,7 @@ class OrderDetailScreen extends StatelessWidget {
                       Text(
                         'Production Phase',
                         style: TextStyles.kBoldDongle(
-                          fontSize: 18,
+                          fontSize: 22,
                           color: Colors.grey.shade600,
                         ),
                       ),
@@ -792,7 +868,7 @@ class OrderDetailScreen extends StatelessWidget {
                                 'CONFIRM ORDER',
                                 style: TextStyles.kBoldDongle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 24,
                                 ),
                               ),
                             ),
@@ -815,6 +891,10 @@ class OrderDetailScreen extends StatelessWidget {
       child: Obx(() {
         final order = controller.selectedOrder.value;
         if (order == null) return const SizedBox();
+
+        if (controller.viewingFactorIndex.value != 0) {
+          return _buildFactorDetailInPlace(order, controller);
+        }
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -979,11 +1059,9 @@ class OrderDetailScreen extends StatelessWidget {
       lockReason = "Please complete Factor 4: Production Issues first.";
     }
 
-    bool isReadOnly = false;
     bool isFrozenCompleted = false;
 
     if (controller.currentOrder.status == 'In Production' && index <= 3) {
-      isReadOnly = true;
       isFrozenCompleted = true;
     }
 
@@ -1006,17 +1084,7 @@ class OrderDetailScreen extends StatelessWidget {
                 return;
               }
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => fds.FactorDetailScreen(
-                    order: controller.currentOrder,
-                    factorIndex: index,
-                    title: title,
-                    isReadOnly: isReadOnly,
-                  ),
-                ),
-              );
+              controller.viewingFactorIndex.value = index;
             },
       child: Opacity(
         opacity: isLocked ? 0.4 : 1.0,
@@ -1118,6 +1186,241 @@ class OrderDetailScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildFactorDetailInPlace(
+    Order order,
+    TotalOrdersController controller,
+  ) {
+    int index = controller.viewingFactorIndex.value;
+    String title = "";
+    switch (index) {
+      case 1:
+        title = 'Production Capacity';
+        break;
+      case 2:
+        title = 'Cylinder Availability';
+        break;
+      case 3:
+        title = 'Raw Material';
+        break;
+      case 4:
+        title = 'Production Issues';
+        break;
+      case 5:
+        title = 'Delivery Verification';
+        break;
+    }
+
+    bool isReadOnly = false;
+    if (order.status == 'In Production' && index <= 3) {
+      isReadOnly = true;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: AppColors.kColorSecondary,
+              ),
+              onPressed: () => controller.viewingFactorIndex.value = 0,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              title,
+              style: TextStyles.kBoldDongle(
+                fontSize: 28,
+                color: AppColors.kColorPrimary,
+              ),
+            ),
+          ],
+        ),
+        Container(
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: Colors.grey.shade200),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.03),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: fds.FactorDetailScreen(
+            order: order,
+            factorIndex: index,
+            title: title,
+            isReadOnly: isReadOnly,
+            showAppBar: false,
+            onBack: () => controller.viewingFactorIndex.value = 0,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOrderDataTable(Order order) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+      ),
+      child: Column(
+        children: [
+          // Table Header (Matching OrdersTable)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            decoration: BoxDecoration(
+              color: AppColors.kColorPrimary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                _buildHeaderCell('ORDER NO', 2),
+                _buildHeaderCell('CAPACITY', 1),
+                _buildHeaderCell('PROPORTION', 3),
+                _buildHeaderCell('ORDER DATE', 2),
+                _buildHeaderCell('DELIVERY DATE', 2),
+                _buildHeaderCell('DAYS', 1),
+                _buildHeaderCell('CYLINDER', 2),
+                _buildHeaderCell('STATUS', 2),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          // Data Row
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            child: Row(
+              children: [
+                _buildDataCell(order.id, 2, isBold: true),
+                _buildDataCell(order.quantity.toString(), 1),
+                _buildDataCell(order.proportion, 3),
+                _buildDataCell(
+                  DateFormat('dd/MM/yyyy').format(order.orderDate),
+                  2,
+                ),
+                _buildDataCell(
+                  DateFormat('dd/MM/yyyy').format(order.deliveryDate),
+                  2,
+                ),
+                _buildDataCell(
+                  order.productionDays.toString(),
+                  1,
+                  color: Colors.pink,
+                ),
+                _buildDataCell(order.cylinderType, 2),
+                Expanded(flex: 2, child: _buildStatusBadge(order)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeaderCell(String label, int flex) {
+    return Expanded(
+      flex: flex,
+      child: Center(
+        child: Text(
+          label,
+          style: TextStyles.kBoldDongle(
+            fontSize: 26,
+            color: AppColors.kColorSecondary,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDataCell(
+    String value,
+    int flex, {
+    bool isBold = false,
+    Color? color,
+  }) {
+    return Expanded(
+      flex: flex,
+      child: Center(
+        child: Text(
+          value,
+          style: isBold
+              ? TextStyles.kBoldDongle(
+                  fontSize: 23.5,
+                  color: color ?? AppColors.kColorSecondary,
+                )
+              : TextStyles.kRegularDongle(
+                  fontSize: 23.5,
+                  color: color ?? Colors.black87,
+                ),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusBadge(Order order) {
+    String statusText = order.status;
+    Color badgeBgColor;
+    Color badgeTextColor;
+
+    // Standard Status Logic
+    switch (order.status) {
+      case 'In Production':
+        badgeBgColor = const Color(0xFFFFF3E0);
+        badgeTextColor = const Color(0xFFEF6C00);
+        break;
+      case 'Delivered':
+        badgeBgColor = const Color(0xFFE8F5E9);
+        badgeTextColor = const Color(0xFF2E7D32);
+        break;
+      case 'Hold/Stuck':
+        badgeBgColor = const Color(0xFFFCE4EC);
+        badgeTextColor = const Color(0xFFC2185B);
+        break;
+      case 'Due':
+      case 'Delivery Due':
+        badgeBgColor = const Color(0xFFFFEBEE);
+        badgeTextColor = const Color(0xFFC62828);
+        break;
+      case 'Not Due':
+        badgeBgColor = const Color(0xFFE3F2FD);
+        badgeTextColor = const Color(0xFF1565C0);
+        break;
+      case 'Pending Planning':
+        badgeBgColor = const Color(0xFFE3F2FD);
+        badgeTextColor = const Color(0xFF1565C0);
+        break;
+      default:
+        badgeBgColor = const Color(0xFFE3F2FD);
+        badgeTextColor = const Color(0xFF1565C0);
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: badgeBgColor,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: badgeTextColor.withValues(alpha: 0.1)),
+      ),
+      child: Text(
+        statusText,
+        style: TextStyles.kBoldDongle(color: badgeTextColor, fontSize: 20),
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

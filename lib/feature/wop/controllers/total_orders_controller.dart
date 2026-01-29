@@ -24,6 +24,7 @@ class TotalOrdersController extends GetxController {
   var hasFactor4Issue = false.obs; // Production Issue
   var factor4Remark = ''.obs;
   var expandedFactorIndex = 1.obs;
+  var viewingFactorIndex = 0.obs; // 0 = List, 1-5 = Specific Factor Detail
 
   Order get currentOrder => selectedOrder.value!;
 
@@ -103,6 +104,7 @@ class TotalOrdersController extends GetxController {
     factor4Remark.value = '';
     isFactor5Complete.value = false;
     expandedFactorIndex.value = 1;
+    viewingFactorIndex.value = 0;
 
     // Auto-complete previous factors if order is already planned or in production
     if (status == 'In Production') {
@@ -139,27 +141,16 @@ class TotalOrdersController extends GetxController {
   void planOrder() {
     if (selectedOrder.value == null) return;
     final order = selectedOrder.value!;
-
-    // 1. Get reference to DashboardController before any navigation/disposal
     final dashboardController = Get.find<DashboardController>();
 
-    // 2. Update status (Global state)
+    // 1. Update status
     dashboardController.updateOrderStatus(order.id, 'In Production');
 
-    // 3. Update local state
-    expandedFactorIndex.value = 4;
-
-    // 4. Force list refresh
+    // 2. IMPORTANT: Clear preloaded state so the list can re-filter and show other orders
+    clearPreloadedOrders();
     refreshOrders();
 
-    // 5. Close Detail View (which is likely a screen or bottom sheet)
-    // If usage is: List -> Detail Screen (Generic) -> Back.
-    if (Get.isSnackbarOpen) {
-      Get.closeAllSnackbars();
-    }
-    Navigator.of(Get.context!).pop();
-
-    // 6. Show Success Dialog
+    // 3. Show success dialog
     Get.defaultDialog(
       title: "Success",
       middleText: "Order ${order.id} moved to Production successfully!",
@@ -168,58 +159,69 @@ class TotalOrdersController extends GetxController {
         color: Colors.green,
         fontWeight: FontWeight.bold,
       ),
-      middleTextStyle: const TextStyle(color: Colors.black),
-      radius: 10,
+      radius: 12,
       confirm: ElevatedButton(
-        onPressed: () => Get.back(), // Close dialog
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+        onPressed: () {
+          Get.back(); // Close dialog
+          Get.back(); // Close Detail screen (since we push it with Get.to)
+
+          // Clear states after returning
+          selectedOrder.value = null;
+          viewingFactorIndex.value = 0;
+          expandedFactorIndex.value = 1;
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
         child: const Text("OK", style: TextStyle(color: Colors.white)),
       ),
+      barrierDismissible: false,
     );
   }
 
   void completeProduction() {
     if (selectedOrder.value == null) return;
     final order = selectedOrder.value!;
-
-    // 1. Get reference to DashboardController
     final dashboardController = Get.find<DashboardController>();
 
-    // 2. Update status (Global state)
-    // Move to 'Delivered' as requested
+    // 1. Update status to Delivered
     dashboardController.updateOrderStatus(
       order.id,
       'Delivered',
       newDeliveryDate: dashboardController.today,
     );
 
-    // 3. Force list refresh
+    // 2. Refresh list
+    clearPreloadedOrders();
     refreshOrders();
 
-    // 4. Close Screen
-    if (Get.isSnackbarOpen) {
-      Get.closeAllSnackbars();
-    }
-    // Navigate back twice (FactorDetail -> OrderDetail -> List) or just close current if usage implies.
-    // The Complete Button is on OrderDetailScreen (PlanningScreen replacement). So just pop needed.
-    Navigator.of(Get.context!).pop();
-
-    // 5. Show Success Dialog
+    // 3. Show success dialog
     Get.defaultDialog(
       title: "Order Finalized",
       middleText: "Order ${order.id} has been marked as Delivered!",
       backgroundColor: Colors.white,
       titleStyle: const TextStyle(
-        color: Colors.green,
+        color: Colors.indigo,
         fontWeight: FontWeight.bold,
       ),
-      middleTextStyle: const TextStyle(color: Colors.black),
-      radius: 10,
+      radius: 12,
       confirm: ElevatedButton(
-        onPressed: () => Get.back(),
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+        onPressed: () {
+          Get.back(); // Close dialog
+          Get.back(); // Close Detail screen
+
+          // Clear selection
+          selectedOrder.value = null;
+          viewingFactorIndex.value = 0;
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.indigo,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
         child: const Text("OK", style: TextStyle(color: Colors.white)),
       ),
+      barrierDismissible: false,
     );
   }
 
@@ -250,9 +252,18 @@ class TotalOrdersController extends GetxController {
     _refreshTrigger.value; // Depend on trigger
 
     // Determine the base list: Preloaded Orders from timeline OR the full Sample Dataset
-    List<Order> baseOrders = preloadedOrders.isNotEmpty
-        ? List.from(preloadedOrders)
-        : List.from(sampleOrders);
+    List<Order> baseOrders;
+    if (preloadedOrders.isNotEmpty) {
+      // Always get the latest data from sampleOrders even for preloaded list
+      baseOrders = preloadedOrders.map((po) {
+        return sampleOrders.firstWhere(
+          (so) => so.id == po.id,
+          orElse: () => po,
+        );
+      }).toList();
+    } else {
+      baseOrders = List.from(sampleOrders);
+    }
 
     List<Order> orders = baseOrders;
     bool skipDateFilter = false;

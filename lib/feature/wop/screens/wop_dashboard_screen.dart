@@ -241,7 +241,7 @@ class WOPDashboardScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: AppColors.kColorPrimary),
         boxShadow: [
           BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8),
         ],
@@ -252,11 +252,11 @@ class WOPDashboardScreen extends StatelessWidget {
           const SizedBox(width: 16),
           Expanded(
             child: TextField(
-              style: TextStyles.kRegularDongle(fontSize: 16),
+              style: TextStyles.kRegularDongle(fontSize: 24),
               decoration: InputDecoration(
                 hintText: 'Search orders, customers, or products...',
                 hintStyle: TextStyles.kRegularDongle(
-                  fontSize: 16,
+                  fontSize: 24,
                   color: AppColors.kColorGrey,
                 ),
                 border: InputBorder.none,
@@ -270,42 +270,49 @@ class WOPDashboardScreen extends StatelessWidget {
   }
 
   Widget _buildWebQuickFilters(DashboardController controller) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 4, bottom: 4),
+          child: Text(
             "Quick Filter",
             style: TextStyles.kMediumDongle(
-              fontSize: 14,
+              fontSize: 18,
               color: Colors.grey.shade600,
             ),
           ),
-          Obx(
+        ),
+        Container(
+          height: 56,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.kColorPrimary),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 8,
+              ),
+            ],
+          ),
+          child: Obx(
             () => DropdownButtonHideUnderline(
               child: DropdownButton<String>(
                 value: controller.quickFilter.value,
                 isExpanded: true,
-                isDense: true,
                 icon: Icon(
                   Icons.keyboard_arrow_down,
                   color: AppColors.kColorSecondary,
-                  size: 24,
+                  size: 28,
                 ),
                 style: TextStyles.kBoldDongle(
                   fontSize: 24,
                   color: Colors.black87,
                 ),
+                dropdownColor: Colors.white,
+                borderRadius: BorderRadius.circular(12),
                 items: [
                   DropdownMenuItem(
                     value: 'this week',
@@ -328,8 +335,8 @@ class WOPDashboardScreen extends StatelessWidget {
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -355,14 +362,8 @@ class WOPDashboardScreen extends StatelessWidget {
           'color': AppColors.timelineNotDue,
           'useDate': true,
         },
-        // Planned Group
-        {
-          'label': 'Planned',
-          'count': metrics['planned'],
-          'status': 'Planned',
-          'color': AppColors.timelinePlanned,
-          'useDate': true,
-        },
+
+        // Planned Group - REMOVED as per request
         {
           'label': 'In Production',
           'count': metrics['inProduction'],
@@ -390,10 +391,10 @@ class WOPDashboardScreen extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
+          crossAxisCount: 5,
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
-          childAspectRatio: 1.8,
+          childAspectRatio: 1.4,
         ),
         itemCount: items.length,
         itemBuilder: (context, index) {
@@ -441,43 +442,45 @@ class WOPDashboardScreen extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: color.withValues(alpha: 0.3)),
+            border: Border.all(color: AppColors.kColorPrimary),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                    color: Colors.grey.shade400,
-                  ),
-                ],
+              Align(
+                alignment: Alignment.centerRight,
+                child: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                  color: Colors.grey.shade400,
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    count,
-                    style: TextStyles.kBoldDongle(fontSize: 36, color: color),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    label,
-                    style: TextStyles.kMediumDongle(
-                      fontSize: 16,
-                      color: Colors.grey.shade700,
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      count,
+                      style: TextStyles.kBoldDongle(
+                        fontSize: 36,
+                        color: AppColors.kColorRed,
+                      ).copyWith(height: 1.0),
+                      textAlign: TextAlign.center,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                    Text(
+                      label,
+                      style: TextStyles.kMediumDongle(
+                        fontSize: 18,
+                        color: Colors.grey.shade700,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -492,52 +495,54 @@ class WOPDashboardScreen extends StatelessWidget {
     Rx<DateTime> dateObs,
     Function(DateTime) onDateSelected,
   ) {
-    return Obx(
-      () => Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey.shade300),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 8,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 4, bottom: 4),
+          child: Text(
+            label,
+            style: TextStyles.kMediumDongle(
+              fontSize: 18,
+              color: Colors.grey.shade600,
             ),
-          ],
+          ),
         ),
-        child: InkWell(
-          onTap: () async {
-            final date = await showDatePicker(
-              context: context,
-              initialDate: dateObs.value,
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2030),
-            );
-            if (date != null) {
-              onDateSelected(date);
-            }
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                label,
-                style: TextStyles.kMediumDongle(
-                  fontSize: 14,
-                  color: Colors.grey.shade600,
+        Obx(
+          () => Container(
+            height: 56,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: AppColors.kColorPrimary),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 8,
                 ),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ],
+            ),
+            child: InkWell(
+              onTap: () async {
+                final date = await showDatePicker(
+                  context: context,
+                  initialDate: dateObs.value,
+                  firstDate: DateTime(2020),
+                  lastDate: DateTime(2030),
+                );
+                if (date != null) {
+                  onDateSelected(date);
+                }
+              },
+              child: Row(
                 children: [
                   Expanded(
                     child: Text(
                       DateFormat('dd MMM yyyy').format(dateObs.value),
                       style: TextStyles.kBoldDongle(
-                        fontSize: 16,
+                        fontSize: 24,
                         color: Colors.black87,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -545,15 +550,15 @@ class WOPDashboardScreen extends StatelessWidget {
                   ),
                   Icon(
                     Icons.calendar_today,
-                    size: 18,
+                    size: 28,
                     color: AppColors.kColorSecondary,
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
@@ -606,32 +611,33 @@ class WOPDashboardScreen extends StatelessWidget {
   Widget _buildSearchBar() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
+      height: 56,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: AppColors.kColorPrimary),
         boxShadow: [
           BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8),
         ],
       ),
       child: Row(
         children: [
+          Icon(Icons.search, color: AppColors.kColorSecondary, size: 24),
+          const SizedBox(width: 12),
           Expanded(
             child: TextField(
-              style: TextStyles.kRegularDongle(fontSize: FontSizes.k14FontSize),
+              style: TextStyles.kRegularDongle(fontSize: 24),
               decoration: InputDecoration(
                 hintText: 'Search orders, customers, or products...',
                 hintStyle: TextStyles.kRegularDongle(
-                  fontSize: FontSizes.k14FontSize,
+                  fontSize: 24,
                   color: AppColors.kColorGrey,
                 ),
                 border: InputBorder.none,
                 isDense: true,
-                contentPadding: const EdgeInsets.symmetric(vertical: 16),
               ),
             ),
           ),
-          Icon(Icons.search, color: AppColors.kColorSecondary),
         ],
       ),
     );
@@ -1146,8 +1152,8 @@ class WOPDashboardScreen extends StatelessWidget {
                       onTap: onTap,
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
-                        width: isWeb ? 60 : 42,
-                        height: isWeb ? 60 : 42,
+                        width: isWeb ? 55 : 42,
+                        height: isWeb ? 55 : 42,
                         margin: const EdgeInsets.symmetric(
                           horizontal: 2,
                           vertical: 2,
@@ -1163,7 +1169,7 @@ class WOPDashboardScreen extends StatelessWidget {
                             Text(
                               '$value',
                               style: TextStyles.kBoldDongle(
-                                fontSize: isWeb ? 18 : FontSizes.k13FontSize,
+                                fontSize: isWeb ? 22 : FontSizes.k13FontSize,
                                 color: config.textColor,
                               ),
                             ),
@@ -1182,11 +1188,11 @@ class WOPDashboardScreen extends StatelessWidget {
                   }
 
                   return Container(
-                    width: isWeb ? 180 : 130,
+                    width: isWeb ? 175 : 100,
                     margin: EdgeInsets.only(
-                      right: index < 6 ? (isWeb ? 16 : 10) : 0,
+                      right: index < 6 ? (isWeb ? 10 : 8) : 0,
                     ),
-                    padding: EdgeInsets.all(isWeb ? 16 : 10),
+                    padding: EdgeInsets.all(isWeb ? 12 : 10),
                     decoration: BoxDecoration(
                       color: isToday
                           ? Colors.blue.withValues(alpha: 0.04)
@@ -1405,44 +1411,47 @@ class WOPDashboardScreen extends StatelessWidget {
             }),
           ),
           SizedBox(height: isWeb ? 24 : 16),
-          Wrap(
-            spacing: isWeb ? 16 : 12,
-            runSpacing: isWeb ? 12 : 10,
-            children:
-                [
-                  'In Production',
-                  'Capacity',
-                  'Delivery Due',
-                  'Achievable',
-                  'not Achievable',
-                  'Delivered',
-                ].map((status) {
-                  final config =
-                      statusConfig[status] ?? statusConfig['Pending']!;
+          Center(
+            child: Wrap(
+              spacing: isWeb ? 16 : 12,
+              runSpacing: isWeb ? 12 : 10,
+              alignment: WrapAlignment.center,
+              children:
+                  [
+                    'In Production',
+                    'Capacity',
+                    'Delivery Due',
+                    'Achievable',
+                    'not Achievable',
+                    'Delivered',
+                  ].map((status) {
+                    final config =
+                        statusConfig[status] ?? statusConfig['Pending']!;
 
-                  return Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: isWeb ? 16 : 14,
-                        height: isWeb ? 16 : 14,
-                        decoration: BoxDecoration(
-                          color: config.bgColor,
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: config.borderColor),
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: isWeb ? 16 : 14,
+                          height: isWeb ? 16 : 14,
+                          decoration: BoxDecoration(
+                            color: config.bgColor,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(color: config.borderColor),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        status,
-                        style: TextStyles.kMediumDongle(
-                          fontSize: isWeb ? 14 : FontSizes.k11FontSize,
-                          color: Colors.grey.shade700,
+                        const SizedBox(width: 6),
+                        Text(
+                          status,
+                          style: TextStyles.kMediumDongle(
+                            fontSize: isWeb ? 14 : FontSizes.k11FontSize,
+                            color: Colors.grey.shade700,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }).toList(),
+                      ],
+                    );
+                  }).toList(),
+            ),
           ),
           Obx(() {
             if (controller.selectedStatus.value != null) {

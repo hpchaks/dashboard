@@ -8,6 +8,8 @@ import 'package:dashboard/styles/font_sizes.dart';
 import 'package:dashboard/constants/color_constants.dart';
 import 'package:intl/intl.dart';
 import 'package:dashboard/feature/wop/controllers/factor_detail_controller.dart';
+import 'package:dashboard/feature/wop/widgets/card.dart'; // Import OrderCard
+import 'package:dashboard/utils/screen_utils/app_screen_utils.dart'; // Import AppScreenUtils
 
 class StatusConfig {
   final IconData icon;
@@ -30,89 +32,185 @@ class FactorDetailScreen extends StatelessWidget {
   final int factorIndex;
   final String title;
   final bool isReadOnly;
+  final bool showAppBar;
+  final VoidCallback? onBack;
 
   const FactorDetailScreen({
     required this.order,
     required this.factorIndex,
     required this.title,
     this.isReadOnly = false,
-    Key? key,
-  }) : super(key: key);
+    this.showAppBar = true,
+    this.onBack,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final totalOrdersController = Get.find<TotalOrdersController>();
     final controller = Get.put(
-      FactorDetailController(totalOrdersController: totalOrdersController),
+      FactorDetailController(
+        totalOrdersController: totalOrdersController,
+        onProcessed: onBack,
+      ),
       tag: order.id,
     );
 
+    final isWeb = AppScreenUtils.isWeb || AppScreenUtils.isTablet(context);
+
+    if (!showAppBar) {
+      return isWeb
+          ? _buildWebLayout(context, controller)
+          : _buildMobileLayout(context, controller);
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.kColorSecondary),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Factor $factorIndex: $title',
-          style: TextStyles.kBoldDongle(
-            color: AppColors.kColorSecondary,
-            fontSize: FontSizes.k18FontSize,
-          ),
+      appBar: _buildAppBar(context),
+      body: isWeb
+          ? _buildWebLayout(context, controller)
+          : _buildMobileLayout(context, controller),
+    );
+  }
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, color: AppColors.kColorSecondary),
+        onPressed: () => Navigator.pop(context),
+      ),
+      title: Text(
+        'Factor $factorIndex: $title',
+        style: TextStyles.kBoldDongle(
+          color: AppColors.kColorSecondary,
+          fontSize: (AppScreenUtils.isWeb || AppScreenUtils.isTablet(context))
+              ? 36
+              : FontSizes.k18FontSize,
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+    );
+  }
+
+  Widget _buildWebLayout(
+    BuildContext context,
+    FactorDetailController controller,
+  ) {
+    if (!showAppBar) {
+      return Padding(
+        padding: const EdgeInsets.all(0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildContent(context, controller),
-            const SizedBox(height: 48),
-            Obx(() {
-              // Access the observable FIRST to ensure GetX tracks it
-              final noIssueSelected = controller.isNoIssueSelected.value;
-
-              final isFactor4Selection = factorIndex == 4 && noIssueSelected;
-              final showDone = factorIndex == 1 || isFactor4Selection;
-
-              if (!showDone || isReadOnly) return const SizedBox.shrink();
-
-              return SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (factorIndex == 1) {
-                      controller.totalOrdersController.isFactor1Complete.value =
-                          true;
-                    } else if (factorIndex == 4) {
-                      controller.markFactor4Complete(true);
-                    }
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.kColorSecondary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    'DONE',
-                    style: TextStyles.kBoldDongle(
-                      color: Colors.white,
-                      fontSize: FontSizes.k16FontSize,
-                    ),
-                  ),
-                ),
-              );
-            }),
+            const SizedBox(height: 32),
+            _buildActionButtons(context, controller),
           ],
         ),
+      );
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Left Panel - Order Card
+        Expanded(
+          flex: 2,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(32),
+            child: OrderCard(order: order),
+          ),
+        ),
+        // Right Panel - Planning Content
+        Expanded(
+          flex: 3,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              border: Border(left: BorderSide(color: Colors.grey.shade200)),
+            ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Factor $factorIndex: $title',
+                    style: TextStyles.kBoldDongle(
+                      fontSize: 28,
+                      color: AppColors.kColorPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  _buildContent(context, controller),
+                  const SizedBox(height: 48),
+                  _buildActionButtons(context, controller),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMobileLayout(
+    BuildContext context,
+    FactorDetailController controller,
+  ) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildContent(context, controller),
+          const SizedBox(height: 48),
+          _buildActionButtons(context, controller),
+        ],
       ),
     );
+  }
+
+  Widget _buildActionButtons(
+    BuildContext context,
+    FactorDetailController controller,
+  ) {
+    return Obx(() {
+      final noIssueSelected = controller.isNoIssueSelected.value;
+      final isFactor4Selection = factorIndex == 4 && noIssueSelected;
+      final showDone = factorIndex == 1 || isFactor4Selection;
+
+      if (!showDone || isReadOnly) return const SizedBox.shrink();
+
+      return SizedBox(
+        width: double.infinity,
+        height: 50,
+        child: ElevatedButton(
+          onPressed: () {
+            if (factorIndex == 1) {
+              controller.totalOrdersController.isFactor1Complete.value = true;
+            } else if (factorIndex == 4) {
+              controller.markFactor4Complete(true);
+            }
+            controller.popOrFinish(context);
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.kColorSecondary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: Text(
+            'DONE',
+            style: TextStyles.kBoldDongle(
+              color: Colors.white,
+              fontSize: FontSizes.k16FontSize,
+            ),
+          ),
+        ),
+      );
+    });
   }
 
   Widget _buildContent(
@@ -1500,7 +1598,7 @@ class FactorDetailScreen extends StatelessWidget {
                     );
                     Navigator.pop(context); // Close dialog
                     // Optional: Close screen? The user said "move to Due", so maybe closing current detail is best.
-                    Navigator.pop(context);
+                    controller.popOrFinish(context);
                   } else {
                     Get.snackbar(
                       'Required',
