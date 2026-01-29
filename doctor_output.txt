@@ -1,0 +1,40 @@
+[???] Flutter (Channel stable, 3.38.5, on Microsoft Windows [Version 10.0.26200.7623], locale en-IN) [221ms]
+    ??? Flutter version 3.38.5 on channel stable at C:\flutter
+    ??? Upstream repository https://github.com/flutter/flutter.git
+    ??? Framework revision f6ff1529fd (7 weeks ago), 2025-12-11 11:50:07 -0500
+    ??? Engine revision 1527ae0ec5
+    ??? Dart version 3.10.4
+    ??? DevTools version 2.51.1
+    ??? Feature flags: enable-web, enable-linux-desktop, enable-macos-desktop, enable-windows-desktop, enable-android, enable-ios, cli-animations, enable-native-assets, omit-legacy-version-file, enable-lldb-debugging
+
+[???] Windows Version (Windows 11 or higher, 25H2, 2009) [752ms]
+
+[???] Android toolchain - develop for Android devices (Android SDK version 36.1.0) [1,812ms]
+    ??? Android SDK at C:\Users\hppat\AppData\Local\Android\Sdk
+    ??? Emulator version 36.3.10.0 (build_id 14472402) (CL:N/A)
+    ??? Platform android-36, build-tools 36.1.0
+    ??? ANDROID_HOME = C:\Users\hppat\AppData\Local\Android\Sdk
+    ??? Java binary at: C:\Program Files\Android\Android Studio\jbr\bin\java
+      This is the JDK bundled with the latest Android Studio installation on this machine.
+      To manually set the JDK path, use: `flutter config --jdk-dir="path/to/jdk"`.
+    ??? Java version OpenJDK Runtime Environment (build 21.0.8+-14196175-b1038.72)
+    ??? All Android licenses accepted.
+
+[???] Chrome - develop for the web [8ms]
+    ??? Chrome at C:\Program Files\Google\Chrome\Application\chrome.exe
+
+[X] Visual Studio - develop Windows apps [7ms]
+    X Visual Studio not installed; this is necessary to develop Windows apps.
+      Download at https://visualstudio.microsoft.com/downloads/.
+      Please install the "Desktop development with C++" workload, including all of its default components
+
+[???] Connected device (4 available) [386ms]
+    ??? CPH2293 (mobile)  ??? 79Q4DESWVSAQDIAU ??? android-arm64  ??? Android 13 (API 33)
+    ??? Windows (desktop) ??? windows          ??? windows-x64    ??? Microsoft Windows [Version 10.0.26200.7623]
+    ??? Chrome (web)      ??? chrome           ??? web-javascript ??? Google Chrome 144.0.7559.97
+    ??? Edge (web)        ??? edge             ??? web-javascript ??? Microsoft Edge 144.0.3719.92
+
+[???] Network resources [491ms]
+    ??? All expected network resources are available.
+
+! Doctor found issues in 1 category.

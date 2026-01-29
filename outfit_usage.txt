@@ -1,0 +1,203 @@
+lib\feature\home\screens\home_screen.dart:          style: TextStyles.kBolddongle(
+lib\feature\home\screens\home_screen.dart:                    style: TextStyles.kRegulardongle(
+lib\feature\home\screens\home_screen.dart:                                style: TextStyles.kBolddongle(
+lib\feature\home\screens\home_screen.dart:                        style: TextStyles.kSemiBolddongle(
+lib\feature\home\screens\home_screen.dart:                style: TextStyles.kRegulardongle(
+lib\feature\home\screens\home_screen.dart:            style: TextStyles.kBolddongle(
+lib\feature\home\screens\home_screen.dart:                style: TextStyles.kBolddongle(
+lib\feature\home\screens\home_screen.dart:              style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:          style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                    style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:          style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                                style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                                style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                                    style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                                  style: TextStyles.kRegulardongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                  style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                  style: TextStyles.kRegulardongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                                    style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                                    style: TextStyles.kRegulardongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                      style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                      style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                  style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                  style: TextStyles.kRegulardongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                  style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                        style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:            style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                        style: TextStyles.kBolddongle(fontSize: 14),
+lib\feature\wop\screens\factor_detail_screen.dart:                      style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                          style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                              style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:            style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                            style: TextStyles.kBolddongle(fontSize: 16),
+lib\feature\wop\screens\factor_detail_screen.dart:                            style: TextStyles.kRegulardongle(fontSize: 12),
+lib\feature\wop\screens\factor_detail_screen.dart:                          style: TextStyles.kBolddongle(fontSize: 16),
+lib\feature\wop\screens\factor_detail_screen.dart:                          style: TextStyles.kRegulardongle(fontSize: 12),
+lib\feature\wop\screens\factor_detail_screen.dart:                            style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                            style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                        style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                    style: TextStyles.kRegulardongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                    style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:              style: TextStyles.kBolddongle(fontSize: 18, color: color),
+lib\feature\wop\screens\factor_detail_screen.dart:              style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:          style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:          style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:          style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:              style: TextStyles.kMediumdongle(fontSize: FontSizes.k14FontSize),
+lib\feature\wop\screens\factor_detail_screen.dart:              style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:          style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:              style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:              style: TextStyles.kBolddongle(color: AppColors.kColorSecondary),
+lib\feature\wop\screens\factor_detail_screen.dart:              style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:              style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                  style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\factor_detail_screen.dart:              style: TextStyles.kBolddongle(
+lib\feature\wop\screens\factor_detail_screen.dart:                  style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\total_orders_screen.dart:                                  style: TextStyles.kRegulardongle(
+lib\feature\wop\screens\total_orders_screen.dart:                                    hintStyle: TextStyles.kRegulardongle(
+lib\feature\wop\screens\total_orders_screen.dart:                                style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\total_orders_screen.dart:                                      style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\total_orders_screen.dart:                                      style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\total_orders_screen.dart:                          style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\total_orders_screen.dart:            style: TextStyles.kBolddongle(
+lib\feature\wop\screens\total_orders_screen.dart:                style: TextStyles.kBolddongle(
+lib\feature\wop\screens\total_orders_screen.dart:                        style: TextStyles.kBolddongle(
+lib\feature\wop\screens\total_orders_screen.dart:                  style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\total_orders_screen.dart:                      style: TextStyles.kBolddongle(
+lib\feature\wop\screens\total_orders_screen.dart:                            style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:              style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:              style: TextStyles.kRegulardongle(fontSize: FontSizes.k14FontSize),
+lib\feature\wop\screens\wop_dashboard_screen.dart:                hintStyle: TextStyles.kRegulardongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                        style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                style: TextStyles.kRegulardongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                        style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                style: TextStyles.kRegulardongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:            style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                    style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                    style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                      style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                        style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                      style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                        style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                      style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                        style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                          style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                          style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                  style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                    style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                  style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                    style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                  style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                                    style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                    style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                              style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                              style: TextStyles.kRegulardongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                              style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                              style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                        style: TextStyles.kMediumdongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                        style: TextStyles.kSemiBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                              style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                        style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:                      style: TextStyles.kBolddongle(
+lib\feature\wop\screens\wop_dashboard_screen.dart:              style: TextStyles.kRegulardongle(fontSize: 18),
+lib\feature\wop\screens\wop_dashboard_screen.dart:                hintStyle: TextStyles.kRegulardongle(
+lib\feature\wop\widgets\card.dart:                              style: TextStyles.kBolddongle(
+lib\feature\wop\widgets\card.dart:                          style: TextStyles.kBolddongle(
+lib\feature\wop\widgets\card.dart:            style: TextStyles.kBolddongle(
+lib\feature\wop\widgets\card.dart:            style: TextStyles.kBolddongle(
+lib\styles\fonts.dart:  static const dongleLight = 'DongleLight';
+lib\styles\fonts.dart:  static const dongleRegular = 'DongleRegular';
+lib\styles\fonts.dart:  static const dongleMedium = 'DongleMedium';
+lib\styles\fonts.dart:  static const dongleSemiBold = 'DongleSemiBold';
+lib\styles\fonts.dart:  static const dongleBold = 'DongleBold';
+lib\styles\text_styles.dart:  static TextStyle kLightdongle({
+lib\styles\text_styles.dart:  static TextStyle kRegulardongle({
+lib\styles\text_styles.dart:  static TextStyle kItalicdongle({
+lib\styles\text_styles.dart:  static TextStyle kMediumdongle({
+lib\styles\text_styles.dart:  static TextStyle kSemiBolddongle({
+lib\styles\text_styles.dart:  static TextStyle kBolddongle({
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kMediumdongle(
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kRegulardongle(
+lib\utils\dialogs\app_dialogs.dart:        style: TextStyles.kMediumdongle(
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kMediumdongle(
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kRegulardongle(
+lib\utils\dialogs\app_dialogs.dart:        style: TextStyles.kMediumdongle(
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kMediumdongle(
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kRegulardongle(
+lib\utils\dialogs\app_dialogs.dart:        style: TextStyles.kMediumdongle(
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kMediumdongle(
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kRegulardongle(
+lib\utils\dialogs\app_dialogs.dart:        style: TextStyles.kMediumdongle(
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kMediumdongle(
+lib\utils\dialogs\app_dialogs.dart:      style: TextStyles.kRegulardongle(
+lib\utils\dialogs\app_dialogs.dart:        style: TextStyles.kMediumdongle(
+lib\utils\helpers\location_helper.dart:            style: TextStyles.kSemiBolddongle(
+lib\utils\helpers\location_helper.dart:            style: TextStyles.kRegulardongle(
+lib\utils\helpers\location_helper.dart:                style: TextStyles.kRegulardongle(
+lib\widgets\app_appbar.dart:                TextStyles.kMediumdongle(
+lib\widgets\app_appbar.dart:                  TextStyles.kRegulardongle(
+lib\widgets\app_button.dart:                style: TextStyles.kMediumdongle(
+lib\widgets\app_confirmation_dialog.dart:        style: TextStyles.kSemiBolddongle(
+lib\widgets\app_confirmation_dialog.dart:        style: TextStyles.kRegulardongle(
+lib\widgets\app_date_picker_text_form_field.dart:              headlineMedium: TextStyles.kMediumdongle(
+lib\widgets\app_date_picker_text_form_field.dart:              bodyLarge: TextStyles.kRegulardongle(
+lib\widgets\app_date_picker_text_form_field.dart:              bodyMedium: TextStyles.kMediumdongle(
+lib\widgets\app_date_picker_text_form_field.dart:              labelMedium: TextStyles.kMediumdongle(
+lib\widgets\app_date_picker_text_form_field.dart:              labelLarge: TextStyles.kMediumdongle(
+lib\widgets\app_date_picker_text_form_field.dart:      style: TextStyles.kRegulardongle(
+lib\widgets\app_date_picker_text_form_field.dart:        hintStyle: TextStyles.kRegulardongle(
+lib\widgets\app_date_picker_text_form_field.dart:        labelStyle: TextStyles.kRegulardongle(
+lib\widgets\app_date_picker_text_form_field.dart:        floatingLabelStyle: TextStyles.kMediumdongle(
+lib\widgets\app_date_picker_text_form_field.dart:        errorStyle: TextStyles.kRegulardongle(
+lib\widgets\app_dropdown.dart:        baseStyle: TextStyles.kRegulardongle(
+lib\widgets\app_dropdown.dart:          hintStyle: TextStyles.kRegulardongle(
+lib\widgets\app_dropdown.dart:          labelStyle: TextStyles.kRegulardongle(
+lib\widgets\app_dropdown.dart:          floatingLabelStyle: TextStyles.kMediumdongle(
+lib\widgets\app_dropdown.dart:          errorStyle: TextStyles.kRegulardongle(
+lib\widgets\app_dropdown.dart:            style: TextStyles.kRegulardongle(
+lib\widgets\app_dropdown.dart:          style: TextStyles.kRegulardongle(
+lib\widgets\app_dropdown.dart:            hintStyle: TextStyles.kRegulardongle(
+lib\widgets\app_dropdown.dart:            labelStyle: TextStyles.kRegulardongle(
+lib\widgets\app_dropdown.dart:            floatingLabelStyle: TextStyles.kMediumdongle(
+lib\widgets\app_dropdown.dart:            errorStyle: TextStyles.kRegulardongle(
+lib\widgets\app_editable_dropdown.dart:              style: TextStyles.kRegulardongle(
+lib\widgets\app_editable_dropdown.dart:                hintStyle: TextStyles.kRegulardongle(
+lib\widgets\app_editable_dropdown.dart:                labelStyle: TextStyles.kRegulardongle(
+lib\widgets\app_editable_dropdown.dart:                floatingLabelStyle: TextStyles.kMediumdongle(
+lib\widgets\app_editable_dropdown.dart:                errorStyle: TextStyles.kRegulardongle(
+lib\widgets\app_editable_dropdown.dart:                        style: TextStyles.kRegulardongle(
+lib\widgets\app_month_picker.dart:      style: TextStyles.kMediumdongle(
+lib\widgets\app_month_picker.dart:        hintStyle: TextStyles.kRegulardongle(
+lib\widgets\app_month_picker.dart:        labelStyle: TextStyles.kRegulardongle(
+lib\widgets\app_month_picker.dart:        floatingLabelStyle: TextStyles.kMediumdongle(
+lib\widgets\app_month_picker.dart:        errorStyle: TextStyles.kRegulardongle(
+lib\widgets\app_month_picker.dart:                  style: TextStyles.kMediumdongle(
+lib\widgets\app_month_picker.dart:                                style: TextStyles.kMediumdongle(
+lib\widgets\app_month_picker.dart:                            style: TextStyles.kMediumdongle(
+lib\widgets\app_month_picker.dart:                        style: TextStyles.kMediumdongle(
+lib\widgets\app_month_picker.dart:                        style: TextStyles.kMediumdongle(
+lib\widgets\app_multiple_selection_bottom_sheet.dart:                style: TextStyles.kSemiBolddongle(
+lib\widgets\app_multiple_selection_bottom_sheet.dart:                        style: TextStyles.kRegulardongle(
+lib\widgets\app_multiple_selection_field.dart:                  ? TextStyles.kRegulardongle(
+lib\widgets\app_multiple_selection_field.dart:                  : TextStyles.kMediumdongle(
+lib\widgets\app_page_indicator.dart:        style: TextStyles.kBolddongle(
+lib\widgets\app_page_indicator.dart:        style: TextStyles.kMediumdongle(
+lib\widgets\app_text_button.dart:            TextStyles.kMediumdongle(
+lib\widgets\app_text_button_with_icon.dart:            TextStyles.kMediumdongle(
+lib\widgets\app_text_form_field.dart:      style: TextStyles.kRegulardongle(
+lib\widgets\app_text_form_field.dart:        hintStyle: TextStyles.kRegulardongle(
+lib\widgets\app_text_form_field.dart:        labelStyle: TextStyles.kRegulardongle(
+lib\widgets\app_text_form_field.dart:        floatingLabelStyle: TextStyles.kMediumdongle(
+lib\widgets\app_text_form_field.dart:        errorStyle: TextStyles.kRegulardongle(
+lib\widgets\app_time_picker_field.dart:        headlineLarge: TextStyles.kMediumdongle(
+lib\widgets\app_time_picker_field.dart:        bodyLarge: TextStyles.kRegulardongle(
+lib\widgets\app_time_picker_field.dart:        bodyMedium: TextStyles.kMediumdongle(
+lib\widgets\app_time_picker_field.dart:        labelLarge: TextStyles.kMediumdongle(
+lib\widgets\app_time_picker_field.dart:      style: TextStyles.kRegulardongle(
+lib\widgets\app_time_picker_field.dart:        hintStyle: TextStyles.kRegulardongle(
+lib\widgets\app_time_picker_field.dart:        labelStyle: TextStyles.kRegulardongle(
+lib\widgets\app_time_picker_field.dart:        floatingLabelStyle: TextStyles.kMediumdongle(
+lib\widgets\app_time_picker_field.dart:        errorStyle: TextStyles.kRegulardongle(
+lib\widgets\app_title_value_container.dart:                style: TextStyles.kSemiBolddongle(
+lib\widgets\app_title_value_container.dart:                style: TextStyles.kRegulardongle(
