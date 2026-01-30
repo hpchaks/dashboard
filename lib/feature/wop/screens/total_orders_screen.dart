@@ -26,8 +26,8 @@ class TotalOrdersScreen extends StatefulWidget {
     this.initialDateFrom,
     this.initialDateTo,
     this.preloadedOrders,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<TotalOrdersScreen> createState() => _TotalOrdersScreenState();
@@ -312,7 +312,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
                 child: Text(
                   'No orders found',
                   style: TextStyles.kMediumDongle(
-                    fontSize: FontSizes.k16FontSize,
+                    fontSize: FontSizes.k24FontSize,
                     color: Colors.grey.shade500,
                   ),
                 ),
@@ -383,11 +383,11 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
                 controller.clearPreloadedOrders();
                 controller.searchQuery.value = val;
               },
-              style: TextStyles.kRegularDongle(fontSize: 24),
+              style: TextStyles.kRegularDongle(fontSize: FontSizes.k24FontSize),
               decoration: InputDecoration(
                 hintText: 'Search orders, customers...',
                 hintStyle: TextStyles.kRegularDongle(
-                  fontSize: 24,
+                  fontSize: FontSizes.k24FontSize,
                   color: AppColors.kColorGrey,
                 ),
                 border: InputBorder.none,
@@ -428,8 +428,8 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
           );
         },
         child: Container(
-          height: 56, // Matched height
-          width: 56,
+          height: AppScreenUtils.isWeb ? 40 : 48,
+          width: AppScreenUtils.isWeb ? 40 : 48,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
@@ -451,7 +451,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
               Icon(
                 Icons.calendar_month,
                 color: AppColors.kColorSecondary,
-                size: 28,
+                size: AppScreenUtils.isWeb ? 20 : 28,
               ),
               if (isDateSelected)
                 Positioned(
@@ -476,7 +476,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
   Widget _buildStatusDropdown() {
     return Obx(
       () => Container(
-        height: 56,
+        height: AppScreenUtils.isWeb ? 40 : 48,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -499,7 +499,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
             icon: Icon(
               Icons.keyboard_arrow_down,
               color: AppColors.kColorSecondary,
-              size: 28,
+              size: AppScreenUtils.isWeb ? 20 : 28,
             ),
             items: controller.statusList.map((String status) {
               return DropdownMenuItem<String>(
@@ -507,8 +507,8 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
                 child: Text(
                   status,
                   style: TextStyles.kBoldDongle(
-                    fontSize: 24,
-                    color: Colors.black87,
+                    fontSize: FontSizes.k22FontSize,
+                    color: Colors.grey.shade600,
                   ),
                 ),
               );
@@ -528,7 +528,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
   Widget _buildCylinderDropdown() {
     return Obx(
       () => Container(
-        height: 56,
+        height: AppScreenUtils.isWeb ? 40 : 48,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -550,7 +550,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
             icon: Icon(
               Icons.keyboard_arrow_down,
               color: AppColors.kColorSecondary,
-              size: 28,
+              size: AppScreenUtils.isWeb ? 20 : 28,
             ),
             items: controller.cylinderList.map((String value) {
               return DropdownMenuItem<String>(
@@ -558,8 +558,8 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
                 child: Text(
                   value,
                   style: TextStyles.kBoldDongle(
-                    fontSize: 24,
-                    color: Colors.black87,
+                    fontSize: FontSizes.k22FontSize,
+                    color: Colors.grey.shade600,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -580,7 +580,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
   Widget _buildSortDropdown() {
     return Obx(
       () => Container(
-        height: 56,
+        height: AppScreenUtils.isWeb ? 40 : 48,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -602,7 +602,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
             icon: Icon(
               Icons.keyboard_arrow_down,
               color: AppColors.kColorSecondary,
-              size: 28,
+              size: AppScreenUtils.isWeb ? 20 : 28,
             ),
             items: controller.sortList.map((String value) {
               return DropdownMenuItem<String>(
@@ -610,8 +610,8 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
                 child: Text(
                   value,
                   style: TextStyles.kBoldDongle(
-                    fontSize: 24,
-                    color: Colors.black87,
+                    fontSize: FontSizes.k22FontSize,
+                    color: Colors.grey.shade600,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -629,7 +629,7 @@ class _TotalOrdersScreenState extends State<TotalOrdersScreen> {
 
 // Order Detail Screen remains mostly the same but with web-optimized layout
 class OrderDetailScreen extends StatelessWidget {
-  const OrderDetailScreen({Key? key}) : super(key: key);
+  const OrderDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -744,7 +744,7 @@ class OrderDetailScreen extends StatelessWidget {
                 if (order == null) return const SizedBox();
 
                 if (controller.viewingFactorIndex.value != 0) {
-                  return _buildFactorDetailInPlace(order, controller);
+                  return _buildFactorDetailInPlace(context, order, controller);
                 }
 
                 return Column(
@@ -761,7 +761,7 @@ class OrderDetailScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
                     _buildFactorItem(
-                      Get.context!,
+                      context,
                       index: 1,
                       title: 'Production Capacity',
                       icon: Icons.factory_outlined,
@@ -770,7 +770,7 @@ class OrderDetailScreen extends StatelessWidget {
                       controller: controller,
                     ),
                     _buildFactorItem(
-                      Get.context!,
+                      context,
                       index: 2,
                       title: 'Cylinder Availability',
                       icon: Icons.storage_outlined,
@@ -779,7 +779,7 @@ class OrderDetailScreen extends StatelessWidget {
                       controller: controller,
                     ),
                     _buildFactorItem(
-                      Get.context!,
+                      context,
                       index: 3,
                       title: 'Raw Material',
                       icon: Icons.inventory_2_outlined,
@@ -832,7 +832,7 @@ class OrderDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       _buildFactorItem(
-                        Get.context!,
+                        context,
                         index: 4,
                         title: 'Production Issues',
                         icon: Icons.report_problem_outlined,
@@ -841,7 +841,7 @@ class OrderDetailScreen extends StatelessWidget {
                         controller: controller,
                       ),
                       _buildFactorItem(
-                        Get.context!,
+                        context,
                         index: 5,
                         title: 'Delivery Verification',
                         icon: Icons.local_shipping_outlined,
@@ -892,139 +892,139 @@ class OrderDetailScreen extends StatelessWidget {
         final order = controller.selectedOrder.value;
         if (order == null) return const SizedBox();
 
-        if (controller.viewingFactorIndex.value != 0) {
-          return _buildFactorDetailInPlace(order, controller);
-        }
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
             OrderCard(order: order),
             const SizedBox(height: 24),
-            Text(
-              order.status == 'In Production'
-                  ? 'Order Progress'
-                  : 'Planning Factors',
-              style: TextStyles.kBoldDongle(
-                fontSize: FontSizes.k18FontSize,
-                color: AppColors.kColorPrimary,
+            if (controller.viewingFactorIndex.value != 0)
+              _buildFactorDetailInPlace(Get.context!, order, controller)
+            else ...[
+              Text(
+                order.status == 'In Production'
+                    ? 'Order Progress'
+                    : 'Planning Factors',
+                style: TextStyles.kBoldDongle(
+                  fontSize: FontSizes.k18FontSize,
+                  color: AppColors.kColorPrimary,
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            _buildFactorItem(
-              Get.context!,
-              index: 1,
-              title: 'Production Capacity',
-              icon: Icons.factory_outlined,
-              iconColor: Colors.blue,
-              isComplete: controller.isFactor1Complete.value,
-              controller: controller,
-            ),
-            _buildFactorItem(
-              Get.context!,
-              index: 2,
-              title: 'Cylinder Availability',
-              icon: Icons.storage_outlined,
-              iconColor: Colors.purple,
-              isComplete: controller.isFactor2Complete.value,
-              controller: controller,
-            ),
-            _buildFactorItem(
-              Get.context!,
-              index: 3,
-              title: 'Raw Material',
-              icon: Icons.inventory_2_outlined,
-              iconColor: Colors.teal,
-              isComplete: controller.isFactor3Complete.value,
-              controller: controller,
-            ),
-            if (order.status != 'In Production')
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed:
-                        (controller.isFactor1Complete.value &&
-                            controller.isFactor2Complete.value &&
-                            controller.isFactor3Complete.value)
-                        ? () => controller.planOrder()
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
+              const SizedBox(height: 16),
+              _buildFactorItem(
+                Get.context!,
+                index: 1,
+                title: 'Production Capacity',
+                icon: Icons.factory_outlined,
+                iconColor: Colors.blue,
+                isComplete: controller.isFactor1Complete.value,
+                controller: controller,
+              ),
+              _buildFactorItem(
+                Get.context!,
+                index: 2,
+                title: 'Cylinder Availability',
+                icon: Icons.storage_outlined,
+                iconColor: Colors.purple,
+                isComplete: controller.isFactor2Complete.value,
+                controller: controller,
+              ),
+              _buildFactorItem(
+                Get.context!,
+                index: 3,
+                title: 'Raw Material',
+                icon: Icons.inventory_2_outlined,
+                iconColor: Colors.teal,
+                isComplete: controller.isFactor3Complete.value,
+                controller: controller,
+              ),
+              if (order.status != 'In Production')
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed:
                           (controller.isFactor1Complete.value &&
                               controller.isFactor2Complete.value &&
                               controller.isFactor3Complete.value)
-                          ? Colors.indigo
-                          : Colors.grey.shade300,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: Text(
-                      'START PRODUCTION',
-                      style: TextStyles.kBoldDongle(
-                        fontSize: FontSizes.k16FontSize,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            if (order.status == 'In Production') ...[
-              const Divider(height: 32),
-              Text(
-                'Production Phase',
-                style: TextStyles.kMediumDongle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
-              ),
-              const SizedBox(height: 12),
-              _buildFactorItem(
-                Get.context!,
-                index: 4,
-                title: 'Production Issues',
-                icon: Icons.report_problem_outlined,
-                iconColor: Colors.red,
-                isComplete: controller.isFactor4Complete.value,
-                controller: controller,
-              ),
-              _buildFactorItem(
-                Get.context!,
-                index: 5,
-                title: 'Delivery Verification',
-                icon: Icons.local_shipping_outlined,
-                iconColor: Colors.orange,
-                isComplete: controller.isFactor5Complete.value,
-                controller: controller,
-              ),
-              if (controller.isFactor4Complete.value &&
-                  controller.isFactor5Complete.value)
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 54,
-                    child: ElevatedButton(
-                      onPressed: () => controller.completeProduction(),
+                          ? () => controller.planOrder()
+                          : null,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.kColorSecondary,
+                        backgroundColor:
+                            (controller.isFactor1Complete.value &&
+                                controller.isFactor2Complete.value &&
+                                controller.isFactor3Complete.value)
+                            ? Colors.indigo
+                            : Colors.grey.shade300,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                       child: Text(
-                        'CONFIRM ORDER',
+                        'START PRODUCTION',
                         style: TextStyles.kBoldDongle(
-                          color: Colors.white,
                           fontSize: FontSizes.k16FontSize,
                         ),
                       ),
                     ),
                   ),
                 ),
+              if (order.status == 'In Production') ...[
+                const Divider(height: 32),
+                Text(
+                  'Production Phase',
+                  style: TextStyles.kMediumDongle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                _buildFactorItem(
+                  Get.context!,
+                  index: 4,
+                  title: 'Production Issues',
+                  icon: Icons.report_problem_outlined,
+                  iconColor: Colors.red,
+                  isComplete: controller.isFactor4Complete.value,
+                  controller: controller,
+                ),
+                _buildFactorItem(
+                  Get.context!,
+                  index: 5,
+                  title: 'Delivery Verification',
+                  icon: Icons.local_shipping_outlined,
+                  iconColor: Colors.orange,
+                  isComplete: controller.isFactor5Complete.value,
+                  controller: controller,
+                ),
+                if (controller.isFactor4Complete.value &&
+                    controller.isFactor5Complete.value)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 54,
+                      child: ElevatedButton(
+                        onPressed: () => controller.completeProduction(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.kColorSecondary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'CONFIRM ORDER',
+                          style: TextStyles.kBoldDongle(
+                            color: Colors.white,
+                            fontSize: FontSizes.k16FontSize,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ],
             const SizedBox(height: 40),
           ],
@@ -1064,6 +1064,8 @@ class OrderDetailScreen extends StatelessWidget {
     if (controller.currentOrder.status == 'In Production' && index <= 3) {
       isFrozenCompleted = true;
     }
+
+    final isWeb = AppScreenUtils.isWeb || AppScreenUtils.isTablet(context);
 
     return InkWell(
       onTap: isFrozenCompleted
@@ -1159,7 +1161,9 @@ class OrderDetailScreen extends StatelessWidget {
                           Text(
                             title,
                             style: TextStyles.kBoldDongle(
-                              fontSize: FontSizes.k15FontSize,
+                              fontSize: isWeb
+                                  ? FontSizes.k15FontSize
+                                  : FontSizes.k14FontSize,
                               color: isComplete
                                   ? Colors.green.shade700
                                   : (isLocked
@@ -1191,6 +1195,7 @@ class OrderDetailScreen extends StatelessWidget {
   }
 
   Widget _buildFactorDetailInPlace(
+    BuildContext context,
     Order order,
     TotalOrdersController controller,
   ) {
@@ -1242,18 +1247,27 @@ class OrderDetailScreen extends StatelessWidget {
           ],
         ),
         Container(
-          padding: const EdgeInsets.all(32),
+          padding: EdgeInsets.all(
+            (AppScreenUtils.isWeb || AppScreenUtils.isTablet(context))
+                ? 32
+                : 16,
+          ),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.grey.shade200),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.03),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
-              ),
-            ],
+            border: (AppScreenUtils.isWeb || AppScreenUtils.isTablet(context))
+                ? Border.all(color: Colors.grey.shade200)
+                : null,
+            boxShadow:
+                (AppScreenUtils.isWeb || AppScreenUtils.isTablet(context))
+                ? [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.03),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
+                    ),
+                  ]
+                : null,
           ),
           child: fds.FactorDetailScreen(
             order: order,
@@ -1261,6 +1275,7 @@ class OrderDetailScreen extends StatelessWidget {
             title: title,
             isReadOnly: isReadOnly,
             showAppBar: false,
+            showCard: false,
             onBack: () => controller.viewingFactorIndex.value = 0,
           ),
         ),

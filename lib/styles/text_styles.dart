@@ -76,4 +76,53 @@ class TextStyles {
       color: color,
     );
   }
+
+  // Outfit Font Styles
+  static TextStyle kRegularOutfit({
+    double fontSize = FontSizes.k14FontSize,
+    Color color = AppColors.kColorBlack,
+    FontWeight fontWeight = FontWeight.w400,
+  }) {
+    return GoogleFonts.outfit(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+    );
+  }
+
+  static TextStyle kMediumOutfit({
+    double fontSize = FontSizes.k14FontSize,
+    Color color = AppColors.kColorBlack,
+    FontWeight fontWeight = FontWeight.w500,
+  }) {
+    return GoogleFonts.outfit(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+    );
+  }
+
+  static TextStyle kSemiBoldOutfit({
+    double fontSize = FontSizes.k14FontSize,
+    Color color = AppColors.kColorBlack,
+    FontWeight fontWeight = FontWeight.w600,
+  }) {
+    return GoogleFonts.outfit(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+    );
+  }
+
+  static TextStyle kBoldOutfit({
+    double fontSize = FontSizes.k14FontSize,
+    Color color = AppColors.kColorBlack,
+    FontWeight fontWeight = FontWeight.w700,
+  }) {
+    return GoogleFonts.outfit(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+    );
+  }
 }

@@ -229,13 +229,13 @@ class FactorDetailController extends GetxController {
       capacityLabel.value = 'Today Capacity';
     } else {
       String suffix = 'th';
-      if (day == 21 || day == 31)
+      if (day == 21 || day == 31) {
         suffix = 'st';
-      else if (day == 22)
+      } else if (day == 22)
         suffix = 'nd';
       else if (day == 23)
         suffix = 'rd';
-      capacityLabel.value = '${day}$suffix Capacity';
+      capacityLabel.value = '$day$suffix Capacity';
     }
 
     // Dynamic logic based on user request:

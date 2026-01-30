@@ -16,7 +16,7 @@ class DashboardController extends GetxController {
   final DateTime today = DateTime(2026, 1, 22);
 
   // Refresh trigger for metrics
-  var _metricsRefresh = 0.obs;
+  final _metricsRefresh = 0.obs;
 
   // Computed Metrics
   Map<String, int> get metrics {
@@ -80,10 +80,11 @@ class DashboardController extends GetxController {
       return o.plannedStart!.isAfter(start) && o.plannedStart!.isBefore(end);
     }).length;
 
-    // 5. Pending Planning: Creation date is usually the most relevant
-    final pending = ordersPlacedInRange
-        .where((o) => o.status == 'Pending Planning')
-        .length;
+    // 5. Pending Planning: Count ALL orders marked as Pending Planning within the date range
+    final pending = sampleOrders.where((o) {
+      if (o.status != 'Pending Planning') return false;
+      return o.orderDate.isAfter(start) && o.orderDate.isBefore(end);
+    }).length;
 
     // 6. Hold/Stuck
     final holdStuck = ordersPlacedInRange

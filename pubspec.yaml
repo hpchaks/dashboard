@@ -88,22 +88,15 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: DongleLight
-  #     fonts:
-  #       - asset: assets/fonts/Dongle-Light.ttf
-  #   - family: DongleRegular
-  #     fonts:
-  #       - asset: assets/fonts/Dongle-Regular.ttf
-  #   - family: DongleMedium
-  #     fonts:
-  #       - asset: assets/fonts/Dongle-Medium.ttf
-  #   - family: DongleBold
-  #     fonts:
-  #       - asset: assets/fonts/Dongle-Bold.ttf
-  #   - family: DongleSemiBold
-  #     fonts:
-  #       - asset: assets/fonts/Dongle-SemiBold.ttf
+  fonts:
+    - family: Dongle
+      fonts:
+        - asset: assets/fonts/Dongle-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Dongle-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Dongle-Bold.ttf
+          weight: 700
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

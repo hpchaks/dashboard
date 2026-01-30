@@ -283,7 +283,7 @@ class _MonthYearPickerDialogState extends State<_MonthYearPickerDialog> {
                           vertical: 12.appHeight,
                         ),
                   decoration: BoxDecoration(
-                    color: AppColors.kColorPrimary.withOpacity(0.1),
+                    color: AppColors.kColorPrimary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(tablet ? 16 : 10),
                   ),
                   child: Row(

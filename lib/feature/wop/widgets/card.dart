@@ -10,7 +10,12 @@ class OrderCard extends StatelessWidget {
   final VoidCallback? onTap;
   final String? customBadge;
 
-  const OrderCard({required this.order, this.onTap, this.customBadge});
+  const OrderCard({
+    super.key,
+    required this.order,
+    this.onTap,
+    this.customBadge,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -33,6 +33,7 @@ class FactorDetailScreen extends StatelessWidget {
   final String title;
   final bool isReadOnly;
   final bool showAppBar;
+  final bool showCard;
   final VoidCallback? onBack;
 
   const FactorDetailScreen({
@@ -41,6 +42,7 @@ class FactorDetailScreen extends StatelessWidget {
     required this.title,
     this.isReadOnly = false,
     this.showAppBar = true,
+    this.showCard = true,
     this.onBack,
     super.key,
   });
@@ -86,8 +88,8 @@ class FactorDetailScreen extends StatelessWidget {
         style: TextStyles.kBoldDongle(
           color: AppColors.kColorSecondary,
           fontSize: (AppScreenUtils.isWeb || AppScreenUtils.isTablet(context))
-              ? 36
-              : FontSizes.k18FontSize,
+              ? FontSizes.k34FontSize
+              : FontSizes.k28FontSize,
         ),
       ),
     );
@@ -164,6 +166,10 @@ class FactorDetailScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (showCard) ...[
+            OrderCard(order: order),
+            const SizedBox(height: 24),
+          ],
           _buildContent(context, controller),
           const SizedBox(height: 48),
           _buildActionButtons(context, controller),
@@ -287,15 +293,15 @@ class FactorDetailScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? Colors.blue.withOpacity(0.15)
+                                ? Colors.blue.withValues(alpha: 0.15)
                                 : (isToday
-                                      ? Colors.blue.withOpacity(0.04)
+                                      ? Colors.blue.withValues(alpha: 0.04)
                                       : Colors.grey.shade50),
                             border: Border.all(
                               color: isSelected
                                   ? Colors.blue
                                   : (isToday
-                                        ? Colors.blue.withOpacity(0.2)
+                                        ? Colors.blue.withValues(alpha: 0.2)
                                         : Colors.grey.shade200),
                               width: isSelected ? 2.5 : 1,
                             ),
@@ -307,14 +313,14 @@ class FactorDetailScreen extends StatelessWidget {
                               Text(
                                 dayName,
                                 style: TextStyles.kMediumDongle(
-                                  fontSize: 10,
+                                  fontSize: FontSizes.k14FontSize,
                                   color: AppColors.kColorGrey,
                                 ),
                               ),
                               Text(
                                 '$dayNum',
                                 style: TextStyles.kBoldDongle(
-                                  fontSize: 14,
+                                  fontSize: FontSizes.k18FontSize,
                                   color: isSelected
                                       ? Colors.blue.shade700
                                       : Colors.black87,
@@ -328,10 +334,10 @@ class FactorDetailScreen extends StatelessWidget {
                                     vertical: 3,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: Colors.blue.withOpacity(0.1),
+                                    color: Colors.blue.withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(4),
                                     border: Border.all(
-                                      color: Colors.blue.withOpacity(0.3),
+                                      color: Colors.blue.withValues(alpha: 0.3),
                                     ),
                                   ),
                                   child: Text(
@@ -461,12 +467,12 @@ class FactorDetailScreen extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: (controller.qaChecklist[key] ?? false)
-                              ? Colors.green.withOpacity(0.05)
+                              ? Colors.green.withValues(alpha: 0.05)
                               : Colors.grey.shade50,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                             color: (controller.qaChecklist[key] ?? false)
-                                ? Colors.green.withOpacity(0.3)
+                                ? Colors.green.withValues(alpha: 0.3)
                                 : Colors.grey.shade200,
                           ),
                         ),
@@ -582,9 +588,11 @@ class FactorDetailScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.05),
+                    color: Colors.blue.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.blue.withOpacity(0.2)),
+                    border: Border.all(
+                      color: Colors.blue.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -710,8 +718,8 @@ class FactorDetailScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 24),
                     decoration: BoxDecoration(
                       color: isPartial
-                          ? Colors.orange.withOpacity(0.05)
-                          : Colors.green.withOpacity(0.05),
+                          ? Colors.orange.withValues(alpha: 0.05)
+                          : Colors.green.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -806,8 +814,8 @@ class FactorDetailScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: controller.isVadilalCylinderAvailable.value
-                        ? Colors.green.withOpacity(0.1)
-                        : Colors.red.withOpacity(0.1),
+                        ? Colors.green.withValues(alpha: 0.1)
+                        : Colors.red.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       color: controller.isVadilalCylinderAvailable.value
@@ -866,6 +874,7 @@ class FactorDetailScreen extends StatelessWidget {
     FactorDetailController controller,
   ) {
     return Obx(() {
+      final isWeb = AppScreenUtils.isWeb || AppScreenUtils.isTablet(context);
       final isAllAvailable = controller.checkDirectAvailability;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -902,7 +911,11 @@ class FactorDetailScreen extends StatelessWidget {
                       ),
                       title: Text(
                         item['name'],
-                        style: TextStyles.kBoldDongle(fontSize: 14),
+                        style: TextStyles.kBoldDongle(
+                          fontSize: isWeb
+                              ? FontSizes.k24FontSize
+                              : FontSizes.k20FontSize,
+                        ),
                       ),
                       subtitle: Text(
                         'Required: ${item['req']} | Stock: ${item['stock']}',
@@ -915,7 +928,7 @@ class FactorDetailScreen extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: (isShort ? Colors.orange : Colors.green)
-                              .withOpacity(0.1),
+                              .withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
@@ -958,7 +971,7 @@ class FactorDetailScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.05),
+                color: Colors.orange.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
@@ -998,6 +1011,7 @@ class FactorDetailScreen extends StatelessWidget {
     FactorDetailController controller,
   ) {
     return Obx(() {
+      final isWeb = AppScreenUtils.isWeb || AppScreenUtils.isTablet(context);
       final hasIssue = controller.hasProductionIssue.value;
       final isComplete = controller.isFactor4Complete.value;
 
@@ -1019,8 +1033,8 @@ class FactorDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: hasIssue
-                    ? Colors.orange.withOpacity(0.1)
-                    : Colors.green.withOpacity(0.1),
+                    ? Colors.orange.withValues(alpha: 0.1)
+                    : Colors.green.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: hasIssue ? Colors.orange : Colors.green,
@@ -1124,11 +1138,19 @@ class FactorDetailScreen extends StatelessWidget {
                           const SizedBox(height: 8),
                           Text(
                             'NO ISSUES',
-                            style: TextStyles.kBoldDongle(fontSize: 16),
+                            style: TextStyles.kBoldDongle(
+                              fontSize: isWeb
+                                  ? FontSizes.k26FontSize
+                                  : FontSizes.k22FontSize,
+                            ),
                           ),
                           Text(
                             'Proceed to Delivery',
-                            style: TextStyles.kRegularDongle(fontSize: 12),
+                            style: TextStyles.kRegularDongle(
+                              fontSize: isWeb
+                                  ? FontSizes.k22FontSize
+                                  : FontSizes.k18FontSize,
+                            ),
                           ),
                         ],
                       ),
@@ -1162,11 +1184,19 @@ class FactorDetailScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           'LOG ISSUE',
-                          style: TextStyles.kBoldDongle(fontSize: 16),
+                          style: TextStyles.kBoldDongle(
+                            fontSize: isWeb
+                                ? FontSizes.k26FontSize
+                                : FontSizes.k22FontSize,
+                          ),
                         ),
                         Text(
                           'Add Remark',
-                          style: TextStyles.kRegularDongle(fontSize: 12),
+                          style: TextStyles.kRegularDongle(
+                            fontSize: isWeb
+                                ? FontSizes.k22FontSize
+                                : FontSizes.k18FontSize,
+                          ),
                         ),
                       ],
                     ),
@@ -1213,9 +1243,9 @@ class FactorDetailScreen extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.05),
+                  color: Colors.blue.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.blue.withOpacity(0.2)),
+                  border: Border.all(color: Colors.blue.withValues(alpha: 0.2)),
                 ),
                 child: Row(
                   children: [
@@ -1224,7 +1254,9 @@ class FactorDetailScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,
-                        border: Border.all(color: Colors.blue.withOpacity(0.1)),
+                        border: Border.all(
+                          color: Colors.blue.withValues(alpha: 0.1),
+                        ),
                       ),
                       child: Icon(
                         Icons.calendar_month,
@@ -1240,7 +1272,9 @@ class FactorDetailScreen extends StatelessWidget {
                             'Simulated Delivery Date',
                             style: TextStyles.kMediumDongle(
                               fontSize: 11,
-                              color: Colors.blue.shade800.withOpacity(0.6),
+                              color: Colors.blue.shade800.withValues(
+                                alpha: 0.6,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 2),
@@ -1304,7 +1338,7 @@ class FactorDetailScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
+                color: Colors.green.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
@@ -1335,7 +1369,13 @@ class FactorDetailScreen extends StatelessWidget {
             child: OutlinedButton.icon(
               onPressed: () => _showLogisticsDialog(context, controller),
               icon: const Icon(Icons.report_problem, size: 18),
-              label: const Text('LOG LOGISTICS ISSUE'),
+              label: Text(
+                'LOG LOGISTICS ISSUE',
+                style: TextStyles.kBoldDongle(
+                  fontSize: FontSizes.k14FontSize,
+                  color: Colors.red,
+                ),
+              ),
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.red,
                 side: const BorderSide(color: Colors.red),
@@ -1356,9 +1396,9 @@ class FactorDetailScreen extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.05),
+          color: color.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: color.withOpacity(0.2)),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
         ),
         child: Column(
           children: [
@@ -1366,11 +1406,12 @@ class FactorDetailScreen extends StatelessWidget {
               value,
               style: TextStyles.kBoldDongle(fontSize: 18, color: color),
             ),
+            const SizedBox(height: 4),
             Text(
               label,
               style: TextStyles.kMediumDongle(
                 fontSize: 10,
-                color: color.withOpacity(0.8),
+                color: color.withValues(alpha: 0.8),
               ),
             ),
           ],
@@ -1460,7 +1501,7 @@ class FactorDetailScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           child: LinearProgressIndicator(
             value: progress,
-            backgroundColor: color.withOpacity(0.1),
+            backgroundColor: color.withValues(alpha: 0.1),
             valueColor: AlwaysStoppedAnimation<Color>(color),
             minHeight: 12,
           ),

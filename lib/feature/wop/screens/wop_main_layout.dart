@@ -5,10 +5,11 @@ import 'package:dashboard/feature/wop/screens/total_orders_screen.dart';
 import 'package:dashboard/feature/wop/widgets/web_sidebar.dart';
 import 'package:dashboard/feature/wop/controllers/dashboard_controller.dart';
 import 'package:dashboard/feature/wop/controllers/total_orders_controller.dart'; // Added Import
+
 import 'package:dashboard/utils/screen_utils/app_screen_utils.dart';
 
 class WOPMainLayout extends StatefulWidget {
-  const WOPMainLayout({Key? key}) : super(key: key);
+  const WOPMainLayout({super.key});
 
   @override
   State<WOPMainLayout> createState() => _WOPMainLayoutState();

@@ -77,7 +77,7 @@ class TotalOrdersController extends GetxController {
   }
 
   // Refresh trigger to force update when external data changes
-  var _refreshTrigger = 0.obs;
+  final _refreshTrigger = 0.obs;
 
   void refreshOrders() {
     _refreshTrigger.value++;
